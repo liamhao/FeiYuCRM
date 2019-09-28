@@ -1,0 +1,21 @@
+{
+    "name": "haosijia/feiyu-crm",
+    "description": "Encrypted call method of FeiYuCRM system",
+    "type": "project",
+    "require": {
+        "php": ">=5.6"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "haosijia",
+            "email": "haosijia@zhufaner.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": {
+            "FeiYuCRM\\": "src/"
+        }
+    }
+}
