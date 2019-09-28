@@ -1,9 +1,9 @@
 {
     "name": "haosijia/feiyu-crm",
     "description": "Encrypted call method of FeiYuCRM system",
-    "type": "project",
+    "type": "library",
     "require": {
-        "php": ">=5.6"
+        
     },
     "license": "MIT",
     "authors": [
