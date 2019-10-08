@@ -24,5 +24,5 @@ $feiyu->pullData('2019-08-01', '2019-09-01', 100)->run(function($customers){
 // 回传数据方法案例
 $res = $feiyu->pushData([
   'clue_id' => '1234567891234567891',
-  'clue_convert_state' => '3',
+  'clue_convert_state' => 3,
 ]);
