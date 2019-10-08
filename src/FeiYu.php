@@ -33,6 +33,8 @@ class FeiYu
   private $fetch_route;
   // Data from host
   private $res_data;
+  // Push data source
+  private $push_data;
 
   public function __construct($options)
   {
@@ -62,18 +64,28 @@ class FeiYu
 
   /**
    * push data
-   * @param string $start_time ['Y-m-d']
-   * @param string $end_time ['Y-m-d']
-   * @param int $page_size
-   * @return $this
+   * @param array $data
+   * @return bool
    */
-  public function pushData($start_time, $end_time, $page_size)
+  public function pushData($data)
   {
-    $this->start_time = strtotime($start_time);
-    $this->end_time = strtotime($end_time);
-    $this->page_size = $page_size;
+    if(!isset($data['clue_convert_state']) || !isset($data['clue_id'])){
+      throw new \Exception("上传数据缺少必要的参数", 1);
+    }
+    if(!is_numeric($data['clue_convert_state'])){
+      throw new \Exception("clue_convert_state 必须是数字类型", 1);
+    }
+    $data['clue_convert_state'] = (int)$data['clue_convert_state'];
+    $this->push_data = json_encode([
+      'source' => 0,
+      'data' => [
+        'clue_id' => $data['clue_id'],
+        'clue_convert_state' => $data['clue_convert_state'],
+      ],
+    ]);
     $this->fetch_route = $this->push_route;
-    return $this;
+    $this->fetchCurl();
+    return !$this->getResData()['status'];
   }
 
   /**
@@ -94,7 +106,7 @@ class FeiYu
     $page = 1;
 
     do {
-      $this->fetchCurl($this->fetch_route, $page, $this->page_size);
+      $this->fetchCurl($page);
 
       if (call_user_func($callback, $this->res_data['data']) === false) {
         return false;
@@ -108,29 +120,30 @@ class FeiYu
 
   /**
    * encrypt url and start_time and end_time to signature
-   * @param string $route
-   * @param string $start_time ['Y-m-d']
-   * @param string $end_time ['Y-m-d']
    * @return $this
    */
-  private function encryptData($route, $start_time, $end_time)
+  private function encryptData()
   {
-    // 这个空格很重要
-    $data = $route . '?start_time='.$start_time.'&end_time='.$end_time.' '.$this->timestamp;
+    // 拼接中的空格很重要
+    if($this->fetch_route == $this->pull_route){
+      $data = $this->fetch_route.'?start_time='.$this->start_time.'&end_time='.$this->end_time.' '.$this->timestamp;
+    } else {
+      $data = $this->fetch_route.' '.$this->timestamp;
+    }
     $this->signature = base64_encode(hash_hmac('sha256', $data, $this->signature_key));
     return $this;
   }
 
   /**
    * fetch data by curl
-   * @param string $route
-   * @return string
+   * @param string $page
+   * @return $this
    */
-  private function fetchCurl($route, $page, $page_size)
+  private function fetchCurl($page = 1)
   {
-    $this->encryptData($route, $this->start_time, $this->end_time);
+    $this->encryptData();
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $this->host.$route.'?page='.$page.'&page_size='.$page_size.'&start_time='.$this->start_time.'&end_time='.$this->end_time);
+    curl_setopt($ch, CURLOPT_URL, $this->host.$this->fetch_route.'?page='.$page.'&page_size='.$this->page_size.'&start_time='.$this->start_time.'&end_time='.$this->end_time);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_TIMEOUT, 5);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -139,6 +152,10 @@ class FeiYu
         'Timestamp: ' . $this->timestamp,
         'Access-Token: ' . $this->token,
     ]);
+    if($this->fetch_route == $this->push_route){
+      curl_setopt($ch, CURLOPT_POST, true);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $this->push_data);
+    }
     $output = curl_exec($ch);
     $error = curl_error($ch);
     curl_close($ch);
@@ -147,6 +164,9 @@ class FeiYu
     }
     $this->res_data = json_decode($output, true);
     if($this->res_data['status'] != 'success'){
+      if(is_array($this->res_data['msg'])){
+        throw new \Exception(json_encode($this->res_data['msg']), 1);
+      }
       throw new \Exception($this->res_data['msg'], 1);
     }
     return $this;
