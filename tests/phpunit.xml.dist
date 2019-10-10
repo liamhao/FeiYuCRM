@@ -1,0 +1,18 @@
+<phpunit bootstrap="../src/FeiYu.php" colors="true">
+
+  <testsuites>
+    <testsuite name="FeiYuCRM Test Suite">
+      <directory>./</directory>
+    </testsuite>
+  </testsuites>
+
+  <filter>
+    <whitelist>
+      <directory>../src/</directory>
+      <exclude>
+        <directory>../vendor/</directory>
+      </exclude>
+    </whitelist>
+  </filter>
+
+</phpunit>

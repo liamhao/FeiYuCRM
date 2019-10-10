@@ -160,15 +160,20 @@ class FeiYu
     $error = curl_error($ch);
     curl_close($ch);
     if($error != ''){
-      throw new \Exception($error, 1);
+      throw new FeiYuException($error, 1);
     }
     $this->res_data = json_decode($output, true);
     if($this->res_data['status'] != 'success'){
       if(is_array($this->res_data['msg'])){
-        throw new \Exception(json_encode($this->res_data['msg']), 1);
+        throw new FeiYuException(json_encode($this->res_data['msg']), 1);
       }
-      throw new \Exception($this->res_data['msg'], 1);
+      throw new FeiYuException($this->res_data['msg'], 1);
     }
     return $this;
   }
+}
+
+class FeiYuException extends \Exception
+{
+  
 }
