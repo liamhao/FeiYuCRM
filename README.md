@@ -1,11 +1,15 @@
 # FeiYuCRM
 今日头条飞鱼CRM接口加密调用类
 
+[![Build Status](https://travis-ci.org/w736611944/FeiYuCRM.svg)](https://travis-ci.org/w736611944/FeiYuCRM)
+[![Latest Stable Version](https://poser.pugx.org/haosijia/feiyu-crm/v/stable)](https://packagist.org/packages/haosijia/feiyu-crm)
+[![Total Downloads](https://poser.pugx.org/haosijia/feiyu-crm/downloads)](https://packagist.org/packages/haosijia/feiyu-crm)
+[![License](https://poser.pugx.org/haosijia/feiyu-crm/license)](https://packagist.org/packages/haosijia/feiyu-crm)
+
 ## 安装
     $ composer require haosijia/feiyu-crm
 
 ## 使用
-基本使用:
 ```php
 <?php
 
