@@ -20,29 +20,29 @@ class FeiYu
   public $token;
 
   // Timestamp
-  private $timestamp;
+  protected $timestamp;
   // Signature
-  private $signature;
+  protected $signature;
   // Start time
-  private $start_time;
+  protected $start_time;
   // End time
-  private $end_time;
+  protected $end_time;
   // Page size
-  private $page_size;
+  protected $page_size;
   // Run route
-  private $fetch_route;
+  protected $fetch_route;
   // Data from host
-  private $res_data;
+  protected $res_data;
   // Push data source
-  private $push_data;
+  protected $push_data;
 
   public function __construct($options)
   {
-    $this->host = isset($options['host'])?$options['host']:'';
-    $this->pull_route = isset($options['pull_route'])?$options['pull_route']:'';
-    $this->push_route = isset($options['push_route'])?$options['push_route']:'';
-    $this->signature_key = isset($options['signature_key'])?$options['signature_key']:'';
-    $this->token = isset($options['token'])?$options['token']:'';
+    $this->host = isset($options['host'])?$options['host']:$this->host;
+    $this->pull_route = isset($options['pull_route'])?$options['pull_route']:$this->pull_route;
+    $this->push_route = isset($options['push_route'])?$options['push_route']:$this->push_route;
+    $this->signature_key = isset($options['signature_key'])?$options['signature_key']:$this->signature_key;
+    $this->token = isset($options['token'])?$options['token']:$this->token;
     $this->timestamp = time();
   }
 
@@ -122,7 +122,7 @@ class FeiYu
    * encrypt url and start_time and end_time to signature
    * @return $this
    */
-  private function encryptData()
+  protected function encryptData()
   {
     // 拼接中的空格很重要
     if($this->fetch_route == $this->pull_route){
@@ -139,7 +139,7 @@ class FeiYu
    * @param string $page
    * @return $this
    */
-  private function fetchCurl($page = 1)
+  protected function fetchCurl($page = 1)
   {
     $this->encryptData();
     $ch = curl_init();
