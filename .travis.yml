@@ -1,9 +1,8 @@
 language: php
 php:
   - '7.0'
-  - nightly
 before_script:
-  - composer install
+  - composer install --ignore-platform-reqs
   - cd tests
 script:
   - phpunit -v
