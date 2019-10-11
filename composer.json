@@ -3,7 +3,7 @@
     "description": "Encrypted call method of FeiYuCRM system",
     "type": "library",
     "require": {
-        "phpunit/phpunit": "5.7.27"
+        "phpunit/phpunit": "5.1"
     },
     "license": "MIT",
     "authors": [
