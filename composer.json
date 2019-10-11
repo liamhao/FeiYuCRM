@@ -2,22 +2,32 @@
     "name": "haosijia/feiyu-crm",
     "description": "Encrypted call method of FeiYuCRM system",
     "type": "library",
-    "require": {
-
-    },
-    "require-dev": {
-        "phpunit/phpunit": "5.1"
-    },
     "license": "MIT",
+    "keywords": [
+        "feiyu",
+        "feiyu-crm",
+        "crm"
+    ],
     "authors": [
         {
             "name": "haosijia",
             "email": "haosijia@zhufaner.com"
         }
     ],
+    "require": {
+
+    },
+    "require-dev": {
+        
+    },
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "FeiYuCRM\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
         }
     }
 }

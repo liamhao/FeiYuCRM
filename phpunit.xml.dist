@@ -1,8 +1,9 @@
-<phpunit bootstrap="./src/FeiYu.php" colors="true">
+<phpunit bootstrap="tests/bootstrap.php"
+         colors="true">
 
   <testsuites>
     <testsuite name="FeiYuCRM Test Suite">
-      <directory>./tests</directory>
+      <directory>./tests/</directory>
     </testsuite>
   </testsuites>
 

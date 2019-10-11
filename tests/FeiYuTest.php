@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests;
+
 use PHPUnit\Framework\TestCase;
 use FeiYuCRM\FeiYu;
 
@@ -27,7 +29,7 @@ class FeiYuTest extends TestCase
         
       });
       $this->assertTrue($res);
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       $this->assertTrue($e instanceof \FeiYuCRM\FeiYuException);
     }
   }
@@ -42,7 +44,7 @@ class FeiYuTest extends TestCase
         'clue_convert_state' => 3,
       ]);
       $this->assertTrue($res);
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       $this->assertTrue($e instanceof \FeiYuCRM\FeiYuException);
     }
   }
