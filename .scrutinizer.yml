@@ -10,7 +10,7 @@ build:
                 override:
                     - php-scrutinizer-run
                     -
-                        command: phpcs-run
+                        command: phpcs-run src/
         tests: true
 filter:
     excluded_paths:
