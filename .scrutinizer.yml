@@ -10,9 +10,7 @@ build:
                 override:
                     - php-scrutinizer-run
                     -
-                        command: 
-                            - phpcs-run ./src/
-                            - phpunit
+                        command: phpcs-run ./src/
                         coverage:
                             file: ./clover.xml
                             format: clover
