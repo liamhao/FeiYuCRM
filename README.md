@@ -1,11 +1,11 @@
 # FeiYuCRM
 今日头条飞鱼CRM接口加密调用类
 
-[![Build Status](https://travis-ci.org/w736611944/FeiYuCRM.svg)](https://travis-ci.org/w736611944/FeiYuCRM)
+[![Build Status](https://travis-ci.org/liamhao/FeiYuCRM.svg)](https://travis-ci.org/liamhao/FeiYuCRM)
 [![Latest Stable Version](https://poser.pugx.org/haosijia/feiyu-crm/v/stable)](https://packagist.org/packages/haosijia/feiyu-crm)
 [![Total Downloads](https://poser.pugx.org/haosijia/feiyu-crm/downloads)](https://packagist.org/packages/haosijia/feiyu-crm)
 [![License](https://poser.pugx.org/haosijia/feiyu-crm/license)](https://packagist.org/packages/haosijia/feiyu-crm)
-[![Code Coverage](https://scrutinizer-ci.com/g/w736611944/FeiYuCRM/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/w736611944/FeiYuCRM/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/liamhao/FeiYuCRM/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/liamhao/FeiYuCRM/?branch=master)
 
 ## 安装
     $ composer require haosijia/feiyu-crm
