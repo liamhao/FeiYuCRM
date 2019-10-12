@@ -1,6 +1,6 @@
 {
     "name": "haosijia/feiyu-crm",
-    "description": "Encrypted call method of FeiYuCRM system",
+    "description": "FeiYu CRM System Interface Encryption Class",
     "type": "library",
     "license": "MIT",
     "keywords": [
