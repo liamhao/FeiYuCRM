@@ -9,7 +9,7 @@ build:
             tests:
                 override:
                     - php-scrutinizer-run
-                    - command: phpcs-run ./src/
+#                     - command: phpcs-run ./src/
                     - command: ./run-my-tests
                         coverage:
                             file: ./clover.xml
