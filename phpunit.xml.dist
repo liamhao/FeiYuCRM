@@ -1,6 +1,5 @@
-<phpunit bootstrap="tests/bootstrap.php"
-         colors="true">
-
+<phpunit bootstrap="tests/bootstrap.php" colors="true">
+         
   <testsuites>
     <testsuite name="FeiYuCRM Test Suite">
       <directory>./tests/</directory>
@@ -15,9 +14,5 @@
       </exclude>
     </whitelist>
   </filter>
-
-  <logging>
-    <log type="coverage-clover" target="./clover.xml"/>
-  </logging>
 
 </phpunit>
