@@ -9,12 +9,17 @@ build:
             tests:
                 override:
                     - php-scrutinizer-run
-#                     - command: phpcs-run ./src/
-                    - command: ./run-my-tests
-                        coverage:
-                            file: ./clover.xml
-                            format: clover
+                    - command: phpcs-run ./src/
+                        
+        coverage:
+          tests:
+            override:
+              - command: ./run-my-tests
+                coverage:
+                  file: ./clover.xml
+                  format: clover
         tests: true
+                  
 filter:
     excluded_paths:
         - './tests/*'
