@@ -1,11 +1,10 @@
-tools:
-    external_code_coverage: true
 build:
+    environment:
+        php: 7.2
     nodes:
         analysis:
             project_setup:
-                override:
-                    - 'true'
+                override: true
             tests:
                 override:
                     - php-scrutinizer-run
@@ -14,11 +13,10 @@ build:
         coverage:
           tests:
             override:
-              - command: ./run-my-tests
+              - command: phpunit --coverage-clover=clover.xml
                 coverage:
                   file: ./clover.xml
                   format: clover
-        tests: true
                   
 filter:
     excluded_paths:
