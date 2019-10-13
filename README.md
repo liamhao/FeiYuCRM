@@ -1,7 +1,7 @@
 # FeiYuCRM
 今日头条飞鱼CRM接口加密调用类
 
-[![Build Status](https://travis-ci.org/liamhao/FeiYuCRM.svg)](https://travis-ci.org/liamhao/FeiYuCRM)
+[![Build Status](https://scrutinizer-ci.com/g/liamhao/FeiYuCRM/badges/build.png)](https://scrutinizer-ci.com/g/liamhao/FeiYuCRM/build-status/master)
 [![Latest Stable Version](https://poser.pugx.org/haosijia/feiyu-crm/v/stable)](https://packagist.org/packages/haosijia/feiyu-crm)
 [![Total Downloads](https://poser.pugx.org/haosijia/feiyu-crm/downloads)](https://packagist.org/packages/haosijia/feiyu-crm)
 [![License](https://poser.pugx.org/haosijia/feiyu-crm/license)](https://packagist.org/packages/haosijia/feiyu-crm)
