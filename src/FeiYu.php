@@ -9,32 +9,32 @@ namespace FeiYuCRM;
 class FeiYu
 {
   // Server address
-  public $host;
+  public $host = '';
   // Data fetch route
-  public $pull_route;
+  public $pull_route = '';
   // Upload data route
-  public $push_route;
+  public $push_route = '';
   // Encryption key
-  public $signature_key;
+  public $signature_key = '';
   // Token
-  public $token;
+  public $token = '';
 
   // Timestamp
-  protected $timestamp;
+  protected $timestamp = '';
   // Signature
-  protected $signature;
+  protected $signature = '';
   // Start time
-  protected $start_time;
+  protected $start_time = '';
   // End time
-  protected $end_time;
+  protected $end_time = '';
   // Page size
-  protected $page_size;
+  protected $page_size = '';
   // Run route
-  protected $fetch_route;
+  protected $fetch_route = '';
   // Data from host
-  protected $res_data;
+  protected $res_data = '';
   // Push data source
-  protected $push_data;
+  protected $push_data = '';
 
   public function __construct($options)
   {
@@ -70,10 +70,10 @@ class FeiYu
   public function pushData($data)
   {
     if(!isset($data['clue_convert_state']) || !isset($data['clue_id'])){
-      throw new \Exception("上传数据缺少必要的参数", 1);
+      throw new FeiYuException("Upload data is missing the necessary parameters", 1);
     }
     if(!is_numeric($data['clue_convert_state'])){
-      throw new \Exception("clue_convert_state 必须是数字类型", 1);
+      throw new FeiYuException("'clue_convert_state' must be a numeric type", 1);
     }
     $data['clue_convert_state'] = (int)$data['clue_convert_state'];
     $this->push_data = json_encode([
@@ -143,6 +143,9 @@ class FeiYu
   {
     $this->encryptData();
     $ch = curl_init();
+    if(!$ch){
+      throw new FeiYuException('cURL init failed', 1);
+    }
     curl_setopt($ch, CURLOPT_URL, $this->host.$this->fetch_route.'?page='.$page.'&page_size='.$this->page_size.'&start_time='.$this->start_time.'&end_time='.$this->end_time);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_TIMEOUT, 5);
