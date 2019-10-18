@@ -38,11 +38,11 @@ class FeiYu
 
   public function __construct($options)
   {
-    $this->host = isset($options['host'])?$options['host']:$this->host;
-    $this->pull_route = isset($options['pull_route'])?$options['pull_route']:$this->pull_route;
-    $this->push_route = isset($options['push_route'])?$options['push_route']:$this->push_route;
-    $this->signature_key = isset($options['signature_key'])?$options['signature_key']:$this->signature_key;
-    $this->token = isset($options['token'])?$options['token']:$this->token;
+    $this->host = isset($options['host']) ? $options['host'] : $this->host;
+    $this->pull_route = isset($options['pull_route']) ? $options['pull_route'] : $this->pull_route;
+    $this->push_route = isset($options['push_route']) ? $options['push_route'] : $this->push_route;
+    $this->signature_key = isset($options['signature_key']) ? $options['signature_key'] : $this->signature_key;
+    $this->token = isset($options['token']) ? $options['token'] : $this->token;
     $this->timestamp = time();
   }
 
@@ -69,13 +69,13 @@ class FeiYu
    */
   public function pushData($data)
   {
-    if(!isset($data['clue_convert_state']) || !isset($data['clue_id'])){
+    if (!isset($data['clue_convert_state']) || !isset($data['clue_id'])) {
       throw new FeiYuException("Upload data is missing the necessary parameters", 1);
     }
-    if(!is_numeric($data['clue_convert_state'])){
+    if (!is_numeric($data['clue_convert_state'])) {
       throw new FeiYuException("'clue_convert_state' must be a numeric type", 1);
     }
-    $data['clue_convert_state'] = (int)$data['clue_convert_state'];
+    $data['clue_convert_state'] = (int) $data['clue_convert_state'];
     $this->push_data = json_encode([
       'source' => 0,
       'data' => [
@@ -113,7 +113,7 @@ class FeiYu
       }
 
       $page++;
-    } while (($page-1)*($this->page_size) < $this->res_data['count']);
+    } while (($page - 1) * ($this->page_size) < $this->res_data['count']);
 
     return true;
   }
@@ -125,7 +125,7 @@ class FeiYu
   protected function encryptData()
   {
     // 拼接中的空格很重要
-    if($this->fetch_route == $this->pull_route){
+    if ($this->fetch_route == $this->pull_route) {
       $data = $this->fetch_route.'?start_time='.$this->start_time.'&end_time='.$this->end_time.' '.$this->timestamp;
     } else {
       $data = $this->fetch_route.' '.$this->timestamp;
@@ -143,7 +143,7 @@ class FeiYu
   {
     $this->encryptData();
     $ch = curl_init();
-    if(!$ch){
+    if (!$ch) {
       throw new FeiYuException('cURL init failed', 1);
     }
     curl_setopt($ch, CURLOPT_URL, $this->host.$this->fetch_route.'?page='.$page.'&page_size='.$this->page_size.'&start_time='.$this->start_time.'&end_time='.$this->end_time);
@@ -151,23 +151,23 @@ class FeiYu
     curl_setopt($ch, CURLOPT_TIMEOUT, 5);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         'Content-Type: application/json;charset=UTF-8',
-        'Signature: ' . $this->signature,
-        'Timestamp: ' . $this->timestamp,
-        'Access-Token: ' . $this->token,
+        'Signature: '.$this->signature,
+        'Timestamp: '.$this->timestamp,
+        'Access-Token: '.$this->token,
     ]);
-    if($this->fetch_route == $this->push_route){
+    if ($this->fetch_route == $this->push_route) {
       curl_setopt($ch, CURLOPT_POST, true);
       curl_setopt($ch, CURLOPT_POSTFIELDS, $this->push_data);
     }
     $output = curl_exec($ch);
     $error = curl_error($ch);
     curl_close($ch);
-    if($error != ''){
+    if ($error != '') {
       throw new FeiYuException($error, 1);
     }
     $this->res_data = json_decode($output, true);
-    if($this->res_data['status'] != 'success'){
-      if(is_array($this->res_data['msg'])){
+    if ($this->res_data['status'] != 'success') {
+      if (is_array($this->res_data['msg'])) {
         throw new FeiYuException(json_encode($this->res_data['msg']), 1);
       }
       throw new FeiYuException($this->res_data['msg'], 1);
